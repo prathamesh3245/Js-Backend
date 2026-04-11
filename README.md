@@ -8,7 +8,8 @@ A full-stack JavaScript backend for a video platform, built with Node.js, Expres
 
 ## ⚙️ System Architecture
 
-<img width="2148" height="2540" alt="diagram (1)" src="https://github.com/user-attachments/assets/438ffe5a-4870-4e96-8ee7-26a3fd12ad8e" />
+<img width="2336" height="1678" alt="diagram-export-4-11-2026-2_29_09-PM" src="https://github.com/user-attachments/assets/b1f69d89-45e0-48a1-8d10-352753a62f15" />
+
 
 
 ## 🛠️ Tech Stack
