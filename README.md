@@ -1,4 +1,4 @@
-# Chai aur Backend Series
+# Cloudinary and Multer based Video Platform
 [![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/prathamesh3245/Js-Backend)
 
 A full-stack JavaScript backend for a video platform, built with Node.js, Express, and MongoDB. This project covers essential backend concepts including authentication, data modeling, file uploads, and creating a production-grade API structure.
