@@ -7,7 +7,7 @@ A full-stack JavaScript backend for a video platform, built with Node.js, Expres
 
 
 ## ⚙️ System Architecture
-flowchart TD
+![flowchart TD
 
 subgraph group_runtime["Runtime"]
   node_src_index["Entry point<br/>bootstrap<br/>[index.js]"]
@@ -112,7 +112,7 @@ class node_src_utils_cloudinary,node_src_utils_apierror,node_src_utils_apirespon
 - **File Upload**: Cloudinary, Multer
 - **Environment**: dotenv
 - **Middleware**: CORS, cookie-parser
-- **Dev Tools**: Nodemon, Prettier
+- **Dev Tools**: Nodemon, Prettier]
 
 ## 🚀 Getting Started
 
