@@ -53,7 +53,7 @@ const registerUser = asyncHandler( async (req, res, next) => {
     if(existedUser){
         throw new ApiError(409, "User with email or username already exists")
     }
-
+    
     // console.log(req.files);
 
     const avatarLocalPath = req.files?.avatar ? req.files?.avatar?.[0]?.path : null;
@@ -373,7 +373,7 @@ const getUserChannelProfile = asyncHandler( async (req, res) => {
     if(!username?.trim()){
         throw new ApiError(400, "username is missing")
     }
-
+    
     const channel = await User.aggregate([
         {
             $match: {
