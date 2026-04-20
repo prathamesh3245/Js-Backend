@@ -105,7 +105,39 @@ const uploadVideo = asyncHandler( async(req, res) => {
     )
 })
 
+const getVideoById = asyncHandler( async(req, res) => {
+
+    const { videoId } = req.params;
+
+    if([videoId].some((field) => (field).trim() === "")){
+        throw new ApiError(400, "videoId cannot be empty")
+    }
+
+    if(!videoId){
+        throw new ApiError(400, "videoId is required");
+    }
+
+    const video = await Video.findById(videoId)
+
+    if(!video){
+        throw new ApiError(400, "The video you trying to search does not exist!")
+    }
+
+    return res
+    .status(200)
+    .json(new ApiResponse(
+        200,
+        {
+            requestedVideo: video
+        },
+        "Video based on your request!"
+    ))
+})
+
+
+
 export {
     uploadVideo,
-    getAllVideos
+    getAllVideos,
+    getVideoById
 }
