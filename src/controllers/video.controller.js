@@ -135,9 +135,53 @@ const getVideoById = asyncHandler( async(req, res) => {
 })
 
 
+const updateVideo = asyncHandler( async( req, res) => {
 
+    const { title, description } = req.body
+    const { videoId } = req.params
+
+    if([title, description].some((field) => (field).trim() === "")){
+        throw new ApiError(400, "All the fields are required!")
+    }
+
+    const newThumbnailFilePath = req.file?.path
+
+    if(!newThumbnailFilePath){
+        throw new ApiError(400, "Thumbnail file is required")
+    }
+
+    const newThumbnail = await uploadOnCloudinary(newThumbnailFilePath)
+
+    if(!newThumbnail){
+        throw new ApiError(400, "Thumbnail failed to update")
+    }
+
+    const updatedVideo = await Video.findByIdAndUpdate(
+        videoId,
+        {
+            $set: {
+                title,
+                description,
+                thumbnail: newThumbnail.url
+            }
+        },
+        { new : true }
+    )
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            updateVideo,
+            "Video File updated successfully"
+        )
+    )
+
+})
 export {
     uploadVideo,
     getAllVideos,
-    getVideoById
+    getVideoById,
+    updateVideo
 }
