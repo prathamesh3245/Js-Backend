@@ -173,15 +173,89 @@ const updateVideo = asyncHandler( async( req, res) => {
     .json(
         new ApiResponse(
             200,
-            updateVideo,
+            updatedVideo,
             "Video File updated successfully"
         )
     )
 
 })
+
+const deleteVideo = asyncHandler( async( req, res) => {
+
+    const userId = req.user?._id
+    const { videoId } = req.params
+
+    if([videoId].some((field) => (field).trim() === "")){
+        throw new ApiError(400, "videoId cannot be empty")
+    }
+
+    if(!videoId){
+        throw new ApiError(400, "videoId is required");
+    }
+
+    const video = await Video.findById(videoId)
+
+    const owner = video.owner._id
+    
+    if(owner.equals(userId)){
+        await Video.findByIdAndDelete(videoId)
+    }
+    else{
+        throw new ApiError(400, "You don't own this video!")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            "Video Deleted"
+        )
+    )
+})
+
+const togglePublishStatus = asyncHandler( async( req, res) => {
+
+    const userId = req.user?._id
+    const { videoId } = req.params
+
+    const video = await Video.findById(videoId)
+    
+    const owner = video.owner._id
+
+    if (owner.equals(userId)) {
+        
+        const updatePublish = await Video.findByIdAndUpdate(
+            videoId,
+            {
+                $set: {
+                    isPublished: !(video.isPublished)
+                }
+            },
+            { new : true}
+        )
+
+    } else {
+        throw new ApiError(400, "The video is not owned by you!")
+    }
+
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            "Publishing Toggled!"
+        )
+    )
+})
+
+
 export {
     uploadVideo,
     getAllVideos,
     getVideoById,
-    updateVideo
+    updateVideo,
+    deleteVideo,
+    togglePublishStatus
 }
